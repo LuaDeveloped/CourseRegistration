@@ -7,7 +7,6 @@ echo "<!DOCTYPE html>";
 echo "<html>";
 echo "<head><title>LOGIN</title></head>";
 echo "<body>";
-echo "<h1>Aiden is a pussy<h1>";
 echo "<h1>USERNAME: </h1>";
 echo "<h1>PASSWORD: </h1>";
 echo "</body>";
