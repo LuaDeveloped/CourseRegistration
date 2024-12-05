@@ -13,12 +13,11 @@ class LoginService {
     }
 
     public function validateLogin($email, $password) {
-        $sql = "SELECT * FROM Student WHERE EMAIL = ? AND Password = ?";
+        $sql = "SELECT * FROM Student WHERE LOWER(EMAIL) = LOWER(?) AND Password = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("ss", $email, $password);
         $stmt->execute();
         $result = $stmt->get_result();
-        file_put_contents('debug.log', "Debug: Number of rows found: " . $result->num_rows . PHP_EOL, FILE_APPEND);
         return $result->num_rows > 0;
     }
 }
