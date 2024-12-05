@@ -18,7 +18,7 @@ class LoginService {
         $stmt->bind_param("ss", $email, $password);
         $stmt->execute();
         $result = $stmt->get_result();
-        fwrite(STDOUT, "Debug: Number of rows found: " . $result->num_rows . PHP_EOL);
+        file_put_contents('debug.log', "Debug: Number of rows found: " . $result->num_rows . PHP_EOL, FILE_APPEND);
         return $result->num_rows > 0;
     }
 }
