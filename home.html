@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Course Registration System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <section id="home">
+        <h2>Home Screen</h2>
+
+        <!-- Student Information Section -->
+        <div class="student-info">
+            <h3>Student Information</h3>
+            <p><strong>Name:</strong> <span id="studentName">Loading...</span></p>
+            <p><strong>Student ID:</strong> <span id="studentID">Loading...</span></p>
+            <p><strong>GPA:</strong> <span id="studentGPA">Loading...</span></p>
+            <p><strong>Major:</strong> <span id="studentMajor">Loading...</span></p>
+            <p><strong>Standing:</strong> <span id="studentStanding">Loading...</span></p>
+            <p><strong>Credits Earned:</strong> <span id="studentCredits">Loading...</span></p>
+        </div>
+
+        <div class="sidebar">
+            <h3>Registered Classes</h3>
+            <form id="registeredClassesForm">
+                <div id="registeredClassesList"></div>
+                <div class="button-container">
+                    <button type="button" id="dropClassesButton" onclick="dropSelectedClasses()">Drop Selected Classes</button>
+                    <button type="button" id="registerClassesButton" onclick="window.location.href='selection.html'">Register for Classes</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        // Function to format time from 24-hour to 12-hour format
+        function formatTimeTo12Hour(time) {
+            return time.replace(/\b(\d{1,2}):(\d{2})\b/g, (match, hour, minute) => {
+                hour = parseInt(hour, 10);
+                const period = hour >= 12 ? 'PM' : 'AM';
+                hour = hour % 12 || 12; // Convert hour to 12-hour format
+                return `${hour}:${minute} ${period}`;
+            });
+        }
+
+        // Function to update student information based on logged-in user
+        function updateStudentInfo() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+            if (currentUser) {
+                document.getElementById('studentName').textContent = currentUser.name;
+                document.getElementById('studentID').textContent = currentUser.studentID;
+                document.getElementById('studentGPA').textContent = currentUser.gpa;
+                document.getElementById('studentMajor').textContent = currentUser.major;
+                document.getElementById('studentStanding').textContent = currentUser.standing;
+                document.getElementById('studentCredits').textContent = currentUser.credits;
+            } else {
+                alert('No user logged in. Redirecting to login page.');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Function to update registered classes display
+        function updateRegisteredClassesDisplay() {
+            const registeredClassesList = document.getElementById('registeredClassesList');
+            registeredClassesList.innerHTML = '';
+            const registeredClasses = JSON.parse(localStorage.getItem('registeredClasses')) || [];
+            if (registeredClasses.length > 0) {
+                registeredClasses.forEach(cls => {
+                    const classItem = document.createElement('div');
+                    classItem.className = 'class-item';
+
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.value = cls.code;
+
+                    const label = document.createElement('label');
+                    const formattedTime = formatTimeTo12Hour(cls.time);
+                    label.textContent = `${cls.code} - ${cls.name} (${formattedTime})`;
+
+                    classItem.appendChild(checkbox);
+                    classItem.appendChild(label);
+                    registeredClassesList.appendChild(classItem);
+                });
+            } else {
+                registeredClassesList.textContent = 'No classes registered.';
+            }
+        }
+
+        // Function to drop selected classes
+        function dropSelectedClasses() {
+            const checkboxes = document.querySelectorAll('#registeredClassesList input[type=checkbox]:checked');
+            const selectedClasses = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+            let registeredClasses = JSON.parse(localStorage.getItem('registeredClasses')) || [];
+            registeredClasses = registeredClasses.filter(cls => !selectedClasses.includes(cls.code));
+            localStorage.setItem('registeredClasses', JSON.stringify(registeredClasses));
+
+            alert(`Dropped classes: ${selectedClasses.join(', ')}`);
+            updateRegisteredClassesDisplay();
+        }
+
+        // Update the page when it loads
+        window.onload = function() {
+            updateStudentInfo();
+            updateRegisteredClassesDisplay();
+        };
+    </script>
+</body>
+</html>
