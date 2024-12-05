@@ -1,6 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use CourseRegistration\LoginService;
 include "database.php";
 
 class loginUTest extends TestCase {
