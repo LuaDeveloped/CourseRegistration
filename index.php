@@ -2,7 +2,7 @@
 
 session_start();
 include "database.php";
-include "loginService.php";
+include "LoginService.php";
 
 // Handle Login
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

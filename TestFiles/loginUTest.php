@@ -3,7 +3,7 @@
 use PHPUnit\Framework\TestCase;
 
 class loginUTest extends TestCase {
-    private $LoginService;
+    private $loginService;
 
     protected function setUp(): void {
         $this->loginService = new LoginService();
