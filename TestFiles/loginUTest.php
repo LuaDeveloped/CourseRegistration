@@ -7,13 +7,8 @@ include "database.php";
 class loginUTest extends TestCase {
     private $loginService;
     
-    protected function tearDown(): void
-    {
-        // Close the database connection after each test
-        $this->conn->close();
-    }
     protected function setUp(): void {
-        $this->loginService = new LoginService($this->conn);
+        $this->loginService = new LoginService();
     }
 
     public function testValidLogin() {
