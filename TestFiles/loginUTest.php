@@ -8,7 +8,12 @@ class loginUTest extends TestCase {
     private $loginService;
     
     protected function setUp(): void {
-        $this->loginService = new LoginService();
+        $servername ="localhost";
+        $username = "cs4500";
+        $password = "24Indianatech-";
+        $dbname = "CourseRegistration";
+        $conn = mysqli_connect($servername,$username,$password,$dbname);
+        $this->loginService = new LoginService($conn);
     }
 
     public function testValidLogin() {
