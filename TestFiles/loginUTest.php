@@ -17,7 +17,7 @@ class loginUTest extends TestCase {
 
     public function testValidLogin() {
         $this->assertTrue(
-            $this->loginService->validateLogin("alice.brown@indianatech.edu", "studentpass1"),
+            $this->loginService->validateLogin("bob.white@indianatech.edu", "studentpass2"),
             "Valid login credentials should return true."
         );
     }
