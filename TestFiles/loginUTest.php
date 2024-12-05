@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class LoginServiceTest extends TestCase {
+class loginUTest extends TestCase {
     private $loginService;
 
     protected function setUp(): void {
