@@ -12,7 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $loginService = new LoginService($conn);
     if ($loginService->validateLogin($email, $password)) {
         $_SESSION["email"] = $email;
-        header("Location: home.php");
+        $_SESSION["password"] = $password;
+        header("Location: Home.php");
         exit();
     } else {
         echo 'Invalid username or password.';

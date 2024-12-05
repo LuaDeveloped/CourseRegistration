@@ -12,7 +12,7 @@ class loginUTest extends TestCase {
         $this->dbConnection->close();
     }
     protected function setUp(): void {
-        $this->loginService = new LoginService();
+        $this->loginService = new LoginService($this->dbConnection);
     }
 
     public function testValidLogin() {
