@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use LoginService;
+include LoginService;
 
 class loginUTest extends TestCase {
     private $loginService;
