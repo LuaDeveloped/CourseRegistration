@@ -1,10 +1,16 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+include "database.php";
 
 class loginUTest extends TestCase {
     private $loginService;
-
+    
+    protected function tearDown(): void
+    {
+        // Close the database connection after each test
+        $this->dbConnection->close();
+    }
     protected function setUp(): void {
         $this->loginService = new LoginService();
     }
