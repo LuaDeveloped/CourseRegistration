@@ -10,10 +10,10 @@ class loginUTest extends TestCase {
     protected function tearDown(): void
     {
         // Close the database connection after each test
-        $this->dbConnection->close();
+        $this->conn->close();
     }
     protected function setUp(): void {
-        $this->loginService = new LoginService($this->dbConnection);
+        $this->loginService = new LoginService($this->conn);
     }
 
     public function testValidLogin() {
